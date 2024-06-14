@@ -2,6 +2,7 @@ import { Section } from "../pages/Home";
 import styled from "styled-components";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const InputRow = styled.div`
   display: flex;
@@ -73,7 +74,11 @@ export default function CreateExpense({ month, expenses, setExpenses }) {
       item: newItem,
       amount: parsedAmount,
       description: newDescription,
+
+      createdBy: localStorage.getItem("nickname"),
+      createdAt: localStorage.getItem("userId"),
     };
+    axios.post("http://localhost:5000/expenses", newExpense);
 
     setExpenses([...expenses, newExpense]);
     setNewDate(`2024-${String(month).padStart(2, "0")}-01`);

@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
 import MonthNavigation from "../components/MonthNavigation";
 import ExpenseList from "../components/ExpenseList";
 import CreateExpense from "../components/CreateExpense";
+import axios from "axios";
 
 const Container = styled.main`
   max-width: 800px;

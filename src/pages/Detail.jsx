@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   max-width: 800px;
@@ -89,15 +90,25 @@ export default function Detail({ expenses, setExpenses }) {
           item: item,
           amount: amount,
           description: description,
+          createdBy: expense.createdBy,
+          createdAt: expense.createdAt,
         };
       }
     });
+
+    axios.patch(`http://localhost:5000/expenses/${id}`, {
+        date: date,
+        item: item,
+        amount: amount,
+        description: description,
+    })
     setExpenses(newExpenses);
     navigate("/");
   };
 
   const deleteExpense = () => {
     const newExpenses = expenses.filter((expense) => expense.id !== id);
+    axios.delete(`http://localhost:5000/expenses/${id}`);
     setExpenses(newExpenses);
     navigate("/");
   };
